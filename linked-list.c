@@ -1,0 +1,62 @@
+# include <stdio.h>
+# include "node.h"
+# include <stdlib.h>
+
+//typedef struct _node{
+//	int value;
+//	struct _node *next;
+//}Node;
+typedef struct _list{
+	Node *head;
+	Node *tail;
+}List;
+
+Node *findNode(){
+	
+}
+
+
+
+void printList(List *list){
+	Node *index = list->head;
+	while(index != NULL){
+		printf("%d\t", index->value);
+		index = index->next;
+	} 
+//	for(index= list->head; NULL; index=index->next){
+//		printf("%d\t", index->value);
+//		index = index->next;
+//	}
+//	printf("\n");
+}
+
+void addNode(List *plist, int num){
+	Node *p = (Node*)malloc(sizeof(Node));
+	p->value = num;
+	p->next = NULL;
+	if(plist->head == NULL){
+		plist->head = p;
+		plist->tail = p;
+	} else{
+		plist->tail->next = p;
+		plist->tail = p;
+	}
+} 
+
+int main(){
+	List list;
+	list.head = list.tail = NULL;
+	// if input == -1, then stop the loop
+	int num = 0;
+	scanf("%d", &num);
+	while(num != -1){
+		addNode(&list, num);
+		scanf("%d", &num);
+	}
+//	do{
+//		scanf("%d", &num);
+//		addNode(&list, num);
+//	}while(num != -1);
+	printList(&list);
+	return 0;
+} 
