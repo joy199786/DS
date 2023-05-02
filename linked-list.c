@@ -11,13 +11,27 @@ typedef struct _list{
 	Node *tail;
 }List;
 
-Node *findNode(){
-	
+Node *findNode(List *list, int num){
+	Node *index = list->head;
+	while(index != NULL){
+		//printf("%d\t", index->value);
+		if(index->value == num){
+			return index;
+		}
+		index = index->next;
+	} 
+	printf("Not Found\n");
+	return NULL;
 }
 
 
 
 void printList(List *list){
+	if(!list){
+		printf("Not exist\n");
+		return;
+	}
+	
 	Node *index = list->head;
 	while(index != NULL){
 		printf("%d\t", index->value);
@@ -43,6 +57,17 @@ void addNode(List *plist, int num){
 	}
 } 
 
+void FreeList(List *list){
+	Node *p;// = list->head;
+	Node *q;
+	for(p=list->head; p; p=q){
+		q = p->next;
+		free(p);
+	}
+	list->head = list->tail = NULL;  // the head and tail pointers to NULL
+
+}
+
 int main(){
 	List list;
 	list.head = list.tail = NULL;
@@ -58,5 +83,17 @@ int main(){
 //		addNode(&list, num);
 //	}while(num != -1);
 	printList(&list);
+	
+	//Find Node
+	Node *f = findNode(&list, 10);
+	printf("Find: %d", f->value);
+	
+	//Delete Node 
+	
+	
+	// Free the whole list 
+	FreeList(&list);
+	printList(&list);
+	
 	return 0;
 } 
