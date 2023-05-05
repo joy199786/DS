@@ -24,6 +24,31 @@ Node *findNode(List *list, int num){
 	return NULL;
 }
 
+int  deleteNode(List *list, int num){
+	//find node
+	//free node
+	Node *p = list->head;
+	Node *q = NULL;
+
+	while(p != NULL){
+		//printf("%d\t", index->value);
+		if(p->value == num){
+			if(q){
+				q->next = p->next;
+				free(p);
+				return 1;
+			}
+			else{
+				list->head = p->next;
+				free(q);
+				return 1;
+			}
+		}
+		q = p;
+		p = p->next;
+	} 
+	return -1;
+}
 
 
 void printList(List *list){
@@ -89,7 +114,10 @@ int main(){
 	printf("Find: %d", f->value);
 	
 	//Delete Node 
-	
+	printf("Delete Num: ");
+	scanf("%d", &num);
+	deleteNode(&list, num);
+	printList(&list);
 	
 	// Free the whole list 
 	FreeList(&list);
